@@ -42,7 +42,7 @@ public class UserMealsUtilTest {
     public void testOutOfStartTime() throws Exception {
         List<UserMealWithExceed> filtered = UserMealsUtil.getFilteredMealsWithExceeded(MEAL_LIST, LocalTime.of(13, 0), LocalTime.of(20, 0), 800);
         assertFiltered(filtered, 4);
-        assertExceedFlags(filtered, asList(false, false, true, true));
+        assertExceedFlags(filtered, asList(true, true, true, true));
     }
 
     @Test

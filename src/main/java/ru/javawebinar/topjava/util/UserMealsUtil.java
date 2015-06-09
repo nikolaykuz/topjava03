@@ -10,6 +10,7 @@ import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,19 +37,12 @@ public class UserMealsUtil {
     }
 
     public static List<UserMealWithExceed> getFilteredMealsWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int maxCaloriesPerDay) {
-        List<UserMeal> mealsFilteredByDate = mealList.stream()
-                .filter(um -> isBetween(um.getDateTime().toLocalTime(), startTime, endTime))
-                .collect(toList());
-
-        Map<LocalDate, Integer> dateToCalories = mealsFilteredByDate.stream()
+        Map<LocalDate, Integer> dateToCalories = mealList.stream()
                 .collect(groupingBy(um -> um.getDateTime().toLocalDate(),
-                        reducing(0,
-                                UserMeal::getCalories,
-                                Integer::sum
-                        )
-                ));
+                        Collectors.summingInt(UserMeal::getCalories)));
 
-        List<UserMealWithExceed> result = mealsFilteredByDate.stream()
+        List<UserMealWithExceed> result = mealList.stream()
+                .filter(um -> isBetween(um.getDateTime().toLocalTime(), startTime, endTime))
                 .map(um -> new UserMealWithExceed(um.getDateTime(),
                         um.getDescription(),
                         um.getCalories(),

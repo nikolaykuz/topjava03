@@ -1,9 +1,3 @@
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Р—Р°РІС‚СЂР°Рє", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "РћР±РµРґ", 1000),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "РЈР¶РёРЅ", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Р—Р°РІС‚СЂР°Рє", 500),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "РћР±РµРґ", 1000),
-                new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "РЈР¶РёРЅ", 510)
 package ru.javawebinar.topjava.util;
 
 import ru.javawebinar.topjava.model.UserMeal;

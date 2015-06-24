@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.model.Role;
+import ru.javawebinar.topjava.model.User;
 
 import java.util.Set;
 
@@ -12,5 +13,9 @@ public class LoggedUser {
 
     public static int id() {
         return 1;
+    }
+
+    public  static User getUser() {
+        return null;
     }
 }

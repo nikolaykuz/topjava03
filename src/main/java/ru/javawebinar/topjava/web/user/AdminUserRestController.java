@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.web.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
@@ -10,9 +12,11 @@ import java.util.List;
  * GKislin
  * 06.03.2015.
  */
+@Controller
 public class AdminUserRestController {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserRestController.class);
 
+    @Autowired
     private UserService service;
 
     public List<User> getAll() {

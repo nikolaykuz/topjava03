@@ -32,7 +32,7 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {
-        return null;
+        return userMeal;
     }
 
     @Override

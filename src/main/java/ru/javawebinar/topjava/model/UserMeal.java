@@ -37,4 +37,15 @@ public class UserMeal extends BaseEntity {
     public User getOwner() {
         return owner;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("UserMeal{");
+        sb.append("dateTime=").append(dateTime);
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", calories=").append(calories);
+        sb.append(", owner=").append(owner);
+        sb.append('}');
+        return sb.toString();
+    }
 }

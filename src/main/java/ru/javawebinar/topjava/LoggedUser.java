@@ -16,6 +16,6 @@ public class LoggedUser {
     }
 
     public  static User getUser() {
-        return null;
+        return new User(0, "", "", "", Role.ROLE_USER);
     }
 }

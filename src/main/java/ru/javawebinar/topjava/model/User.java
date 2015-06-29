@@ -10,25 +10,33 @@ import java.util.Set;
  */
 public class User extends NamedEntity {
 
-    private String email;
+    protected String email;
 
-    private String password;
+    protected String password;
 
-    private boolean enabled = true;
+    protected boolean enabled = true;
 
-    private Date registered;
+    protected Date registered;
 
-    private Set<Role> roles;
+    protected Set<Role> roles;
 
     public User() {
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+        this(id, name, email, password, true, EnumSet.of(role, roles));
+    }
+
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
-        this.enabled = true;
-        this.roles = EnumSet.of(role, roles);
+        this.enabled = enabled;
+        this.roles = roles;
     }
 
     public String getEmail() {

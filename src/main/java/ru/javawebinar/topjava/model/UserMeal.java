@@ -25,6 +25,10 @@ public class UserMeal extends BaseEntity{
         this.calories = calories;
     }
 
+    public UserMeal(UserMeal userMeal) {
+        this(userMeal.getId(), userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories());
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -43,6 +47,18 @@ public class UserMeal extends BaseEntity{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     @Override

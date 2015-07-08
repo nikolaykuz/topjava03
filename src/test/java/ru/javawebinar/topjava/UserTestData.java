@@ -9,11 +9,15 @@ import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
+
 /**
  * User: gkislin
  * Date: 26.08.2014
  */
 public class UserTestData {
+    public static final int USER_ID = START_SEQ;
+    public static final int ADMIN_ID = START_SEQ + 1;
 
     public static final TestUser USER = new TestUser(BaseEntity.START_SEQ, "User", "user@yandex.ru", "password", true, Role.ROLE_USER);
     public static final User ADMIN = new TestUser(BaseEntity.START_SEQ + 1, "Admin", "admin@gmail.com", "admin", true, Role.ROLE_ADMIN);

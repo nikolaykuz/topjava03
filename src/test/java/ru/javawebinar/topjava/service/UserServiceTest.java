@@ -8,7 +8,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.UserTestData.*;
-import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.DbPopulator;
@@ -53,7 +52,7 @@ public class UserServiceTest {
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(BaseEntity.START_SEQ);
+        service.delete(USER_ID);
         MATCHER.assertListEquals(Collections.singletonList(ADMIN), service.getAll());
     }
 
@@ -64,7 +63,7 @@ public class UserServiceTest {
 
     @Test
     public void testGet() throws Exception {
-        User user = service.get(BaseEntity.START_SEQ);
+        User user = service.get(USER_ID);
         MATCHER.assertEquals(USER, user);
     }
 
@@ -86,6 +85,6 @@ public class UserServiceTest {
         TestUser updated = new TestUser(USER);
         updated.setName("UpdatedName");
         service.update(updated.asUser());
-        MATCHER.assertEquals(updated, service.get(BaseEntity.START_SEQ));
+        MATCHER.assertEquals(updated, service.get(USER_ID));
     }
 }

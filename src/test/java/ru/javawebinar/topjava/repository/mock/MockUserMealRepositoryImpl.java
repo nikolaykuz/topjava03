@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Repository
 public class MockUserMealRepositoryImpl implements UserMealRepository {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepositoryImpl.class);
+    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserMealRepositoryImpl.class);
 
     @Override
     public boolean delete(int id, int userId) {

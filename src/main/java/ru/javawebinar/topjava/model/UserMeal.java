@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.model;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 /**
@@ -13,6 +15,7 @@ public class UserMeal extends BaseEntity{
 
     protected int calories;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public UserMeal() {

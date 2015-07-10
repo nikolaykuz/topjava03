@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 
+import static java.util.Arrays.asList;
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
@@ -33,7 +34,7 @@ public class UserMealServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(MealTestData.MEAL1_ID, USER_ID);
-        MATCHER.assertListEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
+        MATCHER.assertListEquals(asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
     }
 
     @Test(expected = NotFoundException.class)
@@ -45,7 +46,7 @@ public class UserMealServiceTest {
     public void testSave() throws Exception {
         UserMeal created = getCreated();
         service.save(created, USER_ID);
-        MATCHER.assertListEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
+        MATCHER.assertListEquals(asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
 
     @Test
@@ -79,7 +80,7 @@ public class UserMealServiceTest {
 
     @Test
     public void testGetBetween() throws Exception {
-        MATCHER.assertListEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
+        MATCHER.assertListEquals(asList(MEAL1, MEAL2, MEAL3),
                 service.getBetweenDates(LocalDate.of(2015, Month.MAY, 30), LocalDate.of(2015, Month.MAY, 30), USER_ID));
     }
 

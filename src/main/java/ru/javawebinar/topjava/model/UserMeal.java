@@ -1,18 +1,38 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 /**
  * GKislin
  * 11.01.2015.
  */
-public class UserMeal extends BaseEntity{
+@Entity
+@Table(name = "MEALS")
+@NamedQueries({
+        @NamedQuery(name = UserMeal.DELETE_ALL, query = "DELETE FROM UserMeal m WHERE m.user.id=:user_id"),
+        @NamedQuery(name = UserMeal.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:user_id"),
+        @NamedQuery(name = UserMeal.GET, query = "SELECT m FROM UserMeal m WHERE m.id=:id AND m.user.id=:user_id"),
+        @NamedQuery(name = UserMeal.GET_BETWEEN, query = "SELECT m FROM UserMeal m WHERE m.user.id=:user_id AND dateTime BETWEEN :start_time AND :end_time"),
+        @NamedQuery(name = UserMeal.ALL_SORTED, query = "SELECT m FROM UserMeal m WHERE m.user.id=:user_id ORDER BY m.id DESC"),
+})
+public class UserMeal extends BaseEntity {
+    public static final String ALL_SORTED = "UserMeal.getAllSorted";
+    public static final String GET = "UserMeal.get";
+    public static final String GET_BETWEEN = "UserMeal.getBetween";
+    public static final String DELETE = "UserMeal.delete";
+    public static final String DELETE_ALL = "UserMeal.deleteAll";
+
+    @Column(name = "dateTime", nullable = false)
+    //@Convert(converter = LocalDateTimeConverter.class)
     protected LocalDateTime dateTime;
 
+    @Column(name = "description")
     protected String description;
 
+    @Column(name = "calories", nullable = false)
+    @Min(value = 0)
     protected int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)

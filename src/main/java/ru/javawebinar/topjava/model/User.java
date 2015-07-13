@@ -14,7 +14,7 @@ import java.util.Set;
  * Date: 22.08.2014
  */
 @Entity
-@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
@@ -40,7 +40,7 @@ public class User extends NamedEntity {
     protected boolean enabled = true;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
-    protected Date registered;
+    protected Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))

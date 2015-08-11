@@ -29,7 +29,7 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles("postgres")
+@ActiveProfiles({"postgres", "datajpa"})
 @Sql("classpath:db/populateDB.sql")
 public class UserMealServiceTest {
 

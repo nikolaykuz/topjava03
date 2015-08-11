@@ -32,9 +32,10 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
 
         if (userMeal.isNew()) {
             em.persist(userMeal);
+            return userMeal;
         } else {
             if (get(userMeal.getId(), userId) == null) return null;
-            em.merge(userMeal);
+            return em.merge(userMeal);
 /*
             if (em.createNamedQuery(UserMeal.UPDATE)
                     .setParameter("datetime", userMeal.getDateTime())
@@ -46,7 +47,6 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
             }
 */
         }
-        return userMeal;
     }
 
     @Override

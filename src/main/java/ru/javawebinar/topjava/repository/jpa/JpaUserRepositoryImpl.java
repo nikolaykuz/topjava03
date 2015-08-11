@@ -34,10 +34,10 @@ public class JpaUserRepositoryImpl implements UserRepository {
     public User save(User user) {
         if (user.isNew()) {
             em.persist(user);
+            return user;
         } else {
-            em.merge(user);
+            return em.merge(user);
         }
-        return user;
     }
 
     @Override

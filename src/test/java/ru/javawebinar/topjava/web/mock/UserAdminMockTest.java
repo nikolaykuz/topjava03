@@ -6,19 +6,19 @@ import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
-import ru.javawebinar.topjava.web.user.AdminUserRestController;
+import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.util.Arrays;
 
 public class UserAdminMockTest {
     private static ConfigurableApplicationContext appCtx;
-    private static AdminUserRestController controller;
+    private static AdminRestController controller;
 
     @BeforeClass
     public static void beforeClass() {
         appCtx = new ClassPathXmlApplicationContext("spring/spring-mvc.xml", "spring/spring-app.xml", "spring/mock.xml");
         System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
-        controller = appCtx.getBean(AdminUserRestController.class);
+        controller = appCtx.getBean(AdminRestController.class);
     }
 
     @AfterClass

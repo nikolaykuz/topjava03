@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
@@ -9,12 +8,10 @@ import ru.javawebinar.topjava.service.UserService;
 import java.util.List;
 
 /**
- * GKislin
- * 06.03.2015.
+ * User: gkislin
  */
-@Controller
-public class AdminUserRestController {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(UserRestController.class);
+public abstract class AbstractUserController {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(AbstractUserController.class);
 
     @Autowired
     private UserService service;
@@ -39,8 +36,9 @@ public class AdminUserRestController {
         service.delete(id);
     }
 
-    public void update(User user) {
+    public void update(User user, int id) {
         LOG.info("update " + user);
+        user.setId(id);
         service.update(user);
     }
 

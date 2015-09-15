@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
-import ru.javawebinar.topjava.web.user.AdminUserRestController;
+import ru.javawebinar.topjava.web.user.AdminRestController;
 
 /**
  * GKislin
@@ -19,7 +19,7 @@ import ru.javawebinar.topjava.web.user.AdminUserRestController;
 public class UserAdminSpringMockTest {
 
     @Autowired
-    private AdminUserRestController controller;
+    private AdminRestController controller;
 
     @Test
     public void testCreate() throws Exception {

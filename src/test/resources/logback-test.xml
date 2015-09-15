@@ -12,7 +12,7 @@
     </appender>
 
     <!--log sql parameter -->
-    <logger name="org.hibernate.type" level="trace"/>
+    <!--<logger name="org.hibernate.type" level="trace"/>-->
 
     <logger name="org.springframework.jdbc" level="debug"/>
     <logger name="ru.javawebinar.topjava" level="debug"/>

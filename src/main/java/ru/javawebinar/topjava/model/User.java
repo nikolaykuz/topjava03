@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -8,9 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import java.util.*;
 
 /**
  * User: gkislin
@@ -44,6 +42,7 @@ public class User extends NamedEntity {
     protected boolean enabled = true;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
+    @NotNull
     protected Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
@@ -51,7 +50,7 @@ public class User extends NamedEntity {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
+//    @JsonIgnore
     protected Set<Role> roles;
 
 //    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.EAGER)
@@ -110,6 +109,14 @@ public class User extends NamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setRoles(Role... authorities) {
+        setRoles(Arrays.asList(authorities));
+    }
+
+    public void setRoles(Collection<Role> authorities) {
+        this.roles = EnumSet.copyOf(authorities);
     }
 
     @Override

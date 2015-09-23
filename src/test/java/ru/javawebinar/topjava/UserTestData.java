@@ -73,6 +73,6 @@ public class UserTestData {
     }
 
     public static final ModelMatcher<User, TestUser> MATCHER = new ModelMatcher<>(
-            u -> ((u instanceof TestUser) ? (TestUser) u : new TestUser(u)));
+            u -> ((u instanceof TestUser) ? (TestUser) u : new TestUser(u)), User.class);
 
 }

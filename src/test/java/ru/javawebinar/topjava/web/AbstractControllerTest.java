@@ -10,6 +10,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.javawebinar.topjava.service.UserService;
 
 import javax.annotation.PostConstruct;
@@ -33,6 +34,13 @@ import static ru.javawebinar.topjava.Profiles.POSTGRES;
 @ActiveProfiles({POSTGRES, DATAJPA})
 abstract public class AbstractControllerTest {
 
+    private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
+
+    static {
+        CHARACTER_ENCODING_FILTER.setEncoding("UTF-8");
+        CHARACTER_ENCODING_FILTER.setForceEncoding(true);
+    }
+
     protected MockMvc mockMvc;
 
     @Autowired
@@ -43,7 +51,8 @@ abstract public class AbstractControllerTest {
 
     @PostConstruct
     void postConstruct() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .addFilter(CHARACTER_ENCODING_FILTER).build();
     }
 
     @Before

@@ -89,6 +89,6 @@ abstract public class AbstractUserMealServiceTest extends AbstractServiceTest {
     @Test
     public void testDeleteAll() throws Exception {
         service.deleteAll(USER_ID);
-        Assert.assertEquals(0, service.getAll(USER_ID).size());
+        Assert.assertTrue(service.getAll(USER_ID).isEmpty());
     }
 }

@@ -44,7 +44,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
-                    <input type="hidden" id="item_id" name="item_id">
+                    <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
                         <label for="datetime" class="control-label col-xs-3">Date</label>

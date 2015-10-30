@@ -2,8 +2,12 @@ function makeEditable() {
     form = $('#detailsForm');
 
     $('#add').click(function () {
-        $('#item_id').val(0);
+        $('#id').val(0);
         $('#editRow').modal();
+    });
+
+    $('.update').click(function () {
+        updateRow($(this).attr("id"));
     });
 
     $('.delete').click(function () {
@@ -17,6 +21,15 @@ function makeEditable() {
 
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(event, jqXHR, options, jsExc);
+    });
+}
+
+function updateRow(id) {
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(value);
+        });
+        $('#editRow').modal();
     });
 }
 

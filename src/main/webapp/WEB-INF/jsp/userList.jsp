@@ -14,29 +14,22 @@
         <div class="shadow">
             <h3><fmt:message key="users.title"/></h3>
 
+            <c:set var="ajaxUrl" value="ajax/admin/users/"/>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add User</a>
 
-                <datatables:table id="datatable" data="${userList}" row="user" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxUrl}" row="user" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
-                    <datatables:column title="Name" property="name"/>
-                    <datatables:column title="Email">
-                        <a href="<c:url value="mailto:${user.email}"/>">${user.email}</a>
-                    </datatables:column>
+
+                    <datatables:column title="Name" sortInitDirection="asc" property="name"/>
+                    <datatables:column title="Email" property="email" renderFunction="renderEmail"/>
                     <datatables:column title="Roles" property="roles"/>
-                    <datatables:column title="Active">
-                        <input type="checkbox"
-                               <c:if test="${user.enabled}">checked</c:if> id="${user.id}" onclick="enable($(this))"/>
-                    </datatables:column>
-                    <datatables:column title="Registered">
-                        <fmt:formatDate value="${user.registered}" pattern="dd-MMMM-yyyy"/>
-                    </datatables:column>
-                    <datatables:column filterable="false" sortable="false">
-                        <a class="btn btn-xs btn-primary update" id="${user.id}">Update</a>
-                    </datatables:column>
-                    <datatables:column filterable="false" sortable="false">
-                        <a class="btn btn-xs btn-danger delete" id="${user.id}">Delete</a>
-                    </datatables:column>
+                    <datatables:column title="Active" filterable="false" property="enabled" renderFunction="renderCheckbox"/>
+                    <datatables:column title="Registered" filterable="false" property="registered" renderFunction="renderDate"/>
+                    <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
+                    <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
+
+                    <datatables:callback type="init" function="makeEditable"/>
                 </datatables:table>
             </div>
         </div>
@@ -90,11 +83,7 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/admin/users/';
-    $(function () {
-        makeEditable();
-        init();
-    });
+    var ajaxUrl = '${ajaxUrl}';
 
     function init(){
         $(':checkbox').each(function () {

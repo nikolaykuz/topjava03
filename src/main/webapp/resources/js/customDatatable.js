@@ -1,4 +1,6 @@
 function makeEditable() {
+    form = $('#detailsForm');
+
     $('#add').click(function () {
         $('#item_id').val(0);
         $('#editRow').modal();
@@ -8,7 +10,7 @@ function makeEditable() {
         deleteRow($(this).attr("id"));
     });
 
-    $('#detailsForm').submit(function () {
+    form.submit(function () {
         save();
         return false;
     });
@@ -40,12 +42,10 @@ function updateTable() {
 }
 
 function save() {
-    var frm = $('#detailsForm');
-    debugger;
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        data: frm.serialize(),
+        data: form.serialize(),
         success: function (data) {
             $('#editRow').modal('hide');
             updateTable();
@@ -67,7 +67,7 @@ function successNoty(text) {
     closeNote();
     noty({
         text: text,
-        type: 'successNoty',
+        type: 'success',
         layout: 'bottomRight',
         timeout: true
     });

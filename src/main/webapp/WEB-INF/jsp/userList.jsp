@@ -49,10 +49,11 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
-                    <input type="text" hidden="hidden" id="item_id" name="item_id">
+                    <input type="hidden" id="item_id" name="item_id">
 
                     <div class="form-group">
                         <label for="name" class="control-label col-xs-3">Name</label>
+
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Name">
                         </div>
@@ -86,8 +87,7 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl='ajax/admin/users/';
-//        $(document).ready(function () {
+    var ajaxUrl = 'ajax/admin/users/';
     $(function () {
         makeEditable();
     });

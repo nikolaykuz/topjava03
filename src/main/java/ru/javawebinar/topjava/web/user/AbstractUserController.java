@@ -27,6 +27,7 @@ public abstract class AbstractUserController {
     }
 
     public User create(User user) {
+        user.setId(null);
         LOG.info("create " + user);
         return service.save(user);
     }
@@ -37,8 +38,8 @@ public abstract class AbstractUserController {
     }
 
     public void update(User user, int id) {
-        LOG.info("update " + user);
         user.setId(id);
+        LOG.info("update " + user);
         service.update(user);
     }
 

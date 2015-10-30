@@ -57,8 +57,9 @@ public class AbstractUserMealController {
     }
 
     public UserMeal create(UserMeal meal) {
+        meal.setId(null);
         int userId = LoggedUser.id();
-        LOG.info("create {} for User {}" + meal, userId);
+        LOG.info("create {} for User {}", meal, userId);
         return service.save(meal, userId);
     }
 

@@ -26,7 +26,7 @@
                     <datatables:column title="Roles" property="roles"/>
                     <datatables:column title="Active">
                         <input type="checkbox"
-                               <c:if test="${user.enabled}">checked</c:if> id="${user.id}"/>
+                               <c:if test="${user.enabled}">checked</c:if> id="${user.id}" onclick="enable($(this))"/>
                     </datatables:column>
                     <datatables:column title="Registered">
                         <fmt:formatDate value="${user.registered}" pattern="dd-MMMM-yyyy"/>
@@ -90,6 +90,15 @@
     var ajaxUrl = 'ajax/admin/users/';
     $(function () {
         makeEditable();
+        init();
     });
+
+    function init(){
+        $(':checkbox').each(function () {
+            if (!$(this).is(":checked")) {
+                $(this).closest('tr').css("text-decoration", "line-through");
+            }
+        });
+    }
 </script>
 </html>

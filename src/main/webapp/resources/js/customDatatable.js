@@ -31,6 +31,19 @@ function deleteRow(id) {
     });
 }
 
+function enable(chkbox) {
+    var enabled = chkbox.is(":checked");
+    chkbox.closest('tr').css("text-decoration", enabled ? "none" : "line-through");
+    $.ajax({
+        url: ajaxUrl + chkbox.attr('id'),
+        type: 'POST',
+        data: 'enabled=' + enabled,
+        success: function () {
+            successNoty(enabled ? 'Enabled' : 'Disabled');
+        }
+    });
+}
+
 function updateTable() {
     $.get(ajaxUrl, function (data) {
         oTable_datatable.fnClearTable();
@@ -38,6 +51,7 @@ function updateTable() {
             oTable_datatable.fnAddData(item);
         });
         oTable_datatable.fnDraw();
+        init();
     });
 }
 

@@ -85,6 +85,10 @@
     var ajaxUrl = 'ajax/profile/meals/';
     $(function () {
         makeEditable();
+        init();
     });
+
+    function init() {
+    }
 </script>
 </html>

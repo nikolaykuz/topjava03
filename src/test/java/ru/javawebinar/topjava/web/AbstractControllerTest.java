@@ -16,6 +16,7 @@ import ru.javawebinar.topjava.service.UserService;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static ru.javawebinar.topjava.Profiles.DATAJPA;
 import static ru.javawebinar.topjava.Profiles.POSTGRES;
 
@@ -52,7 +53,7 @@ abstract public class AbstractControllerTest {
     @PostConstruct
     void postConstruct() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .addFilter(CHARACTER_ENCODING_FILTER).build();
+                .addFilter(CHARACTER_ENCODING_FILTER).apply(springSecurity()).build();
     }
 
     @Before

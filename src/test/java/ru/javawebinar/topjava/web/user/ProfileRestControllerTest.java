@@ -29,15 +29,23 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(TestUtil.userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(USER)));
     }
 
     @Test
+    public void testGetUnauth() throws Exception {
+        mockMvc.perform(get(REST_URL).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(TestUtil.userHttpBasic(USER)))
                 .andExpect(status().isOk());
         MATCHER.assertListEquals(Collections.singletonList(ADMIN), service.getAll());
     }
@@ -48,6 +56,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
         UserTo updatedTo = new UserTo(LoggedUser.id(), "newName", "newEmail", "newPassword");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(TestUtil.userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isOk());

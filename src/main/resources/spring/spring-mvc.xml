@@ -28,7 +28,7 @@
         <property name="converters">
             <set>
                 <bean class="ru.javawebinar.topjava.util.converter.StringToLocalDateTimeConverter">
-                     <property name="formatter" value="ISO_DATE_TIME"/>
+                    <property name="formatter" value="#{T(ru.javawebinar.topjava.util.TimeUtil).DATE_TME_FORMATTER}"/>
                 </bean>
             </set>
         </property>

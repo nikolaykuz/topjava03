@@ -27,7 +27,7 @@ public class UserMealAjaxController extends AbstractUserMealController {
 
     @RequestMapping(method = RequestMethod.POST)
     public void update(@RequestParam("id") int id,
-                       @RequestParam("datetime") LocalDateTime dateTime,
+                       @RequestParam("dateTime") LocalDateTime dateTime,
                        @RequestParam("description") String description,
                        @RequestParam("calories") int calories) {
         UserMeal meal = new UserMeal(id, dateTime, description, calories);

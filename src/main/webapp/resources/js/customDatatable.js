@@ -1,3 +1,5 @@
+var form;
+
 function makeEditable() {
     form = $('#detailsForm');
 
@@ -16,6 +18,7 @@ function makeEditable() {
     });
 
     init();
+    refresh();
 }
 
 function updateRow(id) {
@@ -58,7 +61,7 @@ function updateTable() {
             oTable_datatable.fnAddData(item);
         });
         oTable_datatable.fnDraw();
-        init();
+        refresh();
     });
 }
 

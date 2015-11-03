@@ -86,6 +86,9 @@
     var ajaxUrl = '${ajaxUrl}';
 
     function init(){
+    }
+
+    function refresh(){
         $(':checkbox').each(function () {
             if (!$(this).is(":checked")) {
                 $(this).closest('tr').css("text-decoration", "line-through");

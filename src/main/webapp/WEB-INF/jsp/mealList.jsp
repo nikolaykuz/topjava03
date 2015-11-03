@@ -47,11 +47,11 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="datetime" class="control-label col-xs-3">Date</label>
+                        <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="datetime"
-                                   name="datetime" placeholder="Date">
+                            <input type="datetime" class="form-control datetime-picker" id="dateTime"
+                                   name="dateTime" placeholder="Date">
                         </div>
                     </div>
                     <div class="form-group">
@@ -88,6 +88,13 @@
     });
 
     function init() {
+        $('.datetime-picker').datetimepicker({
+            format: 'Y-m-d H:i',
+            lang:'ru'
+        });
+    }
+
+    function refresh() {
     }
 </script>
 </html>

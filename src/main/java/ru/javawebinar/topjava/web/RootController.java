@@ -1,22 +1,25 @@
-package ru.javawebinar.topjava.web.user;
+package ru.javawebinar.topjava.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.javawebinar.topjava.service.UserService;
 
 /**
- * User: gkislin
- * Date: 22.08.2014
+ * GKislin
+ * 09.08.2015.
  */
+
 @Controller
-public class UserController {
-    @Autowired
-    private UserService service;
+public class RootController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String userList() {
         return "userList";
     }
+
+    @RequestMapping(value = "/meals", method = RequestMethod.GET)
+    public String mealList() {
+        return "mealList";
+    }
+
 }

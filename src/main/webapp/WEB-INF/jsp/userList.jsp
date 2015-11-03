@@ -30,6 +30,7 @@
                     <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
 
                     <datatables:callback type="init" function="makeEditable"/>
+                    <datatables:callback type="createdrow" function="updateCreatedRow"/>
                 </datatables:table>
             </div>
         </div>
@@ -88,6 +89,13 @@
     function init(){
     }
 
+    function updateCreatedRow(row, data, dataIndex) {
+        if (!data.enabled) {
+            $(row).css("text-decoration", "line-through");
+        }
+    }
+
+/*
     function refresh(){
         $(':checkbox').each(function () {
             if (!$(this).is(":checked")) {
@@ -95,5 +103,6 @@
             }
         });
     }
+*/
 </script>
 </html>

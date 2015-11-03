@@ -1,5 +1,3 @@
-<%@ page import="ru.javawebinar.topjava.model.UserMeal" %>
-<%@ page import="ru.javawebinar.topjava.util.TimeUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -16,19 +14,19 @@
         <div class="shadow">
             <h3><fmt:message key="meals.title"/></h3>
 
+            <c:set var="ajaxUrl" value="ajax/profile/meals/"/>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add Meal</a>
-                <datatables:table id="datatable" data="${mealList}" row="meal" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxUrl}" row="user" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
-                    <datatables:column title="Date">
-                        <%--${TimeUtil.toString(meal.getDateTime())}  work for tomcat (jasper) 8.0.23 --%>
-                        <%=TimeUtil.toString(((UserMeal) meal).getDateTime())%>
-                    </datatables:column>
+                    <datatables:column title="Date" filterable="false" sortInitDirection="desc" property="dateTime"/>
                     <datatables:column title="Description" property="description"/>
-                    <datatables:column title="Calories" property="calories"/>
-                    <datatables:column filterable="false" sortable="false">
-                        <a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a>
-                    </datatables:column>
+                    <datatables:column title="Calories" filterable="false" property="calories"/>
+                    <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
+                    <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
+
+                    <datatables:callback type="init" function="makeEditable"/>
+                    <datatables:callback type="createdrow" function="updateCreatedRow"/>
                 </datatables:table>
             </div>
         </div>
@@ -82,19 +80,26 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/profile/meals/';
-    $(function () {
-        makeEditable();
-    });
+    var ajaxUrl = '${ajaxUrl}';
 
     function init() {
-        $('.datetime-picker').datetimepicker({
+        $('#dateTime').datetimepicker({
             format: 'Y-m-d H:i',
             lang:'ru'
         });
     }
 
-    function refresh() {
+    function updateCreatedRow(row, data, dataIndex) {
+        $(row).css("color", data.exceed ? 'red' : 'green');
     }
+
+/*
+    function refresh() {
+        $.each($('td.exceed'), function (key, item) {
+            var cell = $(item);
+            cell.parent().css("color", cell.html() == 'true' ? 'red' : 'green');
+        });
+    }
+*/
 </script>
 </html>

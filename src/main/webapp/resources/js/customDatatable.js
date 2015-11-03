@@ -4,6 +4,9 @@ function makeEditable() {
     form = $('#detailsForm');
 
     $('#add').click(function () {
+        form.find(":input").each(function () {
+            $(this).val("");
+        });
         $('#id').val(0);
         $('#editRow').modal();
     });
@@ -18,7 +21,6 @@ function makeEditable() {
     });
 
     init();
-    refresh();
 }
 
 function updateRow(id) {
@@ -61,7 +63,6 @@ function updateTable() {
             oTable_datatable.fnAddData(item);
         });
         oTable_datatable.fnDraw();
-        refresh();
     });
 }
 

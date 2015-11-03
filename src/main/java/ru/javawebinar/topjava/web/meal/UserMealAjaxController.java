@@ -1,11 +1,17 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.to.UserMealWithExceed;
 
-import java.time.LocalDateTime;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -26,15 +32,23 @@ public class UserMealAjaxController extends AbstractUserMealController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void update(@RequestParam("id") int id,
-                       @RequestParam("dateTime") LocalDateTime dateTime,
-                       @RequestParam("description") String description,
-                       @RequestParam("calories") int calories) {
-        UserMeal meal = new UserMeal(id, dateTime, description, calories);
-        if (id == 0) {
-            super.create(meal);
+    public ResponseEntity<String> update(@Valid UserMeal meal, BindingResult result) {
+        if (result.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
+            return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
         } else {
-            super.update(meal, id);
+            if (meal.getId() == 0) {
+                super.create(meal);
+            } else {
+                super.update(meal, meal.getId());
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserMeal get(@PathVariable("id") int id) {
+        return super.get(id);
     }
 }

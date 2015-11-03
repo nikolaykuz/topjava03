@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.util.TimeUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * GKislin
@@ -21,7 +22,11 @@ public class StringToLocalDateTimeConverter implements Converter<String, LocalDa
     }
 
     @Override
-    public LocalDateTime convert(String param) {
-        return TimeUtil.toDateTime(param, formatter);
+    public LocalDateTime convert(String str) {
+        try {
+            return TimeUtil.toDateTime(str, formatter);
+        } catch (DateTimeParseException ex) {
+            return LocalDateTime.parse(str, DateTimeFormatter.ISO_DATE_TIME);
+        }
     }
 }

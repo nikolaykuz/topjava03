@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.web.user;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.TestUtil;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
@@ -52,8 +51,8 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        User updatedUser = service.get(LoggedUser.id());
-        UserTo updatedTo = new UserTo(LoggedUser.id(), "newName", "newEmail", "newPassword");
+        User updatedUser = service.get(USER_ID);
+        UserTo updatedTo = new UserTo(USER_ID, "newName", "newEmail", "newPassword");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(TestUtil.userHttpBasic(USER))

@@ -10,7 +10,7 @@ import ru.javawebinar.topjava.to.UserTo;
  */
 public class UserUtil {
     public static User createFromTo(UserTo newUser) {
-        return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(), Role.ROLE_USER);
+        return new User(null, newUser.getName(), newUser.getEmail(), newUser.getPassword(), Role.ROLE_USER);
     }
 
     public static UserTo asTo(User user) {
@@ -20,10 +20,16 @@ public class UserUtil {
     public static User updateFromTo(User user, UserTo userTo) {
         String password = userTo.getPassword();
         if (!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
+            user.setPassword(PasswordUtil.encode(password));
         }
         user.setName(userTo.getName());
         user.setEmail(userTo.getEmail().toLowerCase());
+        return user;
+    }
+
+    public static User normalize(User user) {
+        user.setPassword(PasswordUtil.encode(user.getPassword()));
+        user.setEmail(user.getEmail().toLowerCase());
         return user;
     }
 }

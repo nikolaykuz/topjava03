@@ -1,11 +1,9 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import ru.javawebinar.topjava.TestUtil;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.UserUtil;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
@@ -22,9 +20,6 @@ import static ru.javawebinar.topjava.UserTestData.*;
 public class ProfileRestControllerTest extends AbstractControllerTest {
 
     public static final String REST_URL = ProfileRestController.REST_URL + '/';
-
-    @Autowired
-    private UserService service;
 
     @Test
     public void testGet() throws Exception {
@@ -46,12 +41,12 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(delete(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(TestUtil.userHttpBasic(USER)))
                 .andExpect(status().isOk());
-        MATCHER.assertListEquals(Collections.singletonList(ADMIN), service.getAll());
+        MATCHER.assertListEquals(Collections.singletonList(ADMIN), userService.getAll());
     }
 
     @Test
     public void testUpdate() throws Exception {
-        User updatedUser = service.get(USER_ID);
+        User updatedUser = userService.get(USER_ID);
         UserTo updatedTo = new UserTo(USER_ID, "newName", "newEmail", "newPassword");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
@@ -60,6 +55,6 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(UserUtil.updateFromTo(updatedUser, updatedTo), service.getByEmail("newemail"));
+        MATCHER.assertEquals(UserUtil.updateFromTo(updatedUser, updatedTo), userService.getByEmail("newemail"));
     }
 }

@@ -27,7 +27,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     public static final String REST_URL = AdminRestController.REST_URL + '/';
 
     @Autowired
-    private UserService service;
+    private UserService userService;
 
     @Test
     public void testGet() throws Exception {
@@ -54,7 +54,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .with(TestUtil.userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk());
-        MATCHER.assertListEquals(Collections.singletonList(ADMIN), service.getAll());
+        MATCHER.assertListEquals(Collections.singletonList(ADMIN), userService.getAll());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(updated, service.get(START_SEQ));
+        MATCHER.assertEquals(updated, userService.get(START_SEQ));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         expected.setId(returned.getId());
 
         MATCHER.assertEquals(expected, returned);
-        MATCHER.assertListEquals(Arrays.asList(ADMIN, expected, USER), service.getAll());
+        MATCHER.assertListEquals(Arrays.asList(ADMIN, expected, USER), userService.getAll());
     }
 
     @Test

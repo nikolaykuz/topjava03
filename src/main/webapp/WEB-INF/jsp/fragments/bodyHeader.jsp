@@ -12,6 +12,7 @@
         <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">
                 <a class="btn btn-info" role="button" href="users"><fmt:message key="users.title"/></a>
+                <a class="btn btn-primary" role="button" href="logout">Logout</a>
             </form>
         </div>
     </div>

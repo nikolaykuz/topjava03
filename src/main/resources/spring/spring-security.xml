@@ -16,6 +16,13 @@
         <csrf disabled="true"/>
     </http>
 
+    <http>
+        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <form-login/>
+        <logout/>
+    </http>
+
     <beans:bean class="ru.javawebinar.topjava.util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>
 
     <authentication-manager>

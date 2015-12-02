@@ -22,7 +22,7 @@ import static java.util.Objects.requireNonNull;
  * Mock implementation
  */
 public class LoggedUser implements UserDetails, Serializable {
-    protected UserTo userTo;
+    protected final UserTo userTo;
     private final boolean enabled;
     private final Set<Role> roles;
     private String encodedPassword;

@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.javawebinar.topjava.LoggedUser;
-import ru.javawebinar.topjava.service.UserService;
 import ru.javawebinar.topjava.to.UserTo;
+import ru.javawebinar.topjava.util.UserUtil;
+import ru.javawebinar.topjava.web.user.AbstractUserController;
 
 import javax.validation.Valid;
 
@@ -21,9 +21,7 @@ import javax.validation.Valid;
  */
 
 @Controller
-public class RootController {
-    @Autowired
-    private UserService userService;
+public class RootController extends AbstractUserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
@@ -63,9 +61,27 @@ public class RootController {
             return "profile";
         } else {
             status.setComplete();
-            userService.update(LoggedUser.get().update(userTo));
+            super.update(LoggedUser.get().update(userTo));
             return "redirect:meals";
         }
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(ModelMap model) {
+        model.addAttribute("userTo", new UserTo());
+        model.addAttribute("register", true);
+        return "profile";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("register", true);
+            return "profile";
+        } else {
+            status.setComplete();
+            super.create(UserUtil.createFromTo(userTo));
+            return "redirect:login?message=app.registered";
+        }
+    }
 }

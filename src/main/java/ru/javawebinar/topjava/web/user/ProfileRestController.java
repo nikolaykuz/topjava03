@@ -31,7 +31,7 @@ public class ProfileRestController extends AbstractUserController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody UserTo userTo) {
-        super.update(userTo, LoggedUser.id());
+        super.update(LoggedUser.get().update(userTo));
     }
 
     @RequestMapping(value = "/text", method = RequestMethod.GET)

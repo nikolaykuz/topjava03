@@ -45,8 +45,7 @@ public abstract class AbstractUserController {
         service.update(UserUtil.normalize(user));
     }
 
-    public void update(UserTo userTo, int id) {
-        userTo.setId(id);
+    public void update(UserTo userTo) {
         LOG.info("update " + userTo);
         service.update(userTo);
     }

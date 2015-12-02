@@ -16,6 +16,7 @@ import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * GKislin
@@ -46,7 +47,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User getByEmail(String email) throws NotFoundException {
-        return ExceptionUtil.check(repository.getByEmail(email), "email=" + email);
+        Objects.requireNonNull(email, "Email must not be empty");
+        return ExceptionUtil.check(repository.getByEmail(email.toLowerCase()), "email=" + email);
     }
 
     @Cacheable("users")
@@ -85,7 +87,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public LoggedUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        User u = repository.getByEmail(email);
+        User u = repository.getByEmail(email.toLowerCase());
         if (u == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }

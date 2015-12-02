@@ -25,7 +25,7 @@ public class UserTo {
     @NotEmpty
     protected String email;
 
-    @Size(min = 5, max = 64, message = " must between 5 and 64 characters")
+    @Size(min = 5, max = 15, message = " must between 5 and 15 characters")
     protected String password;
 
     public void setId(int id) {

@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.*;
-import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 
 public class AdminRestControllerTest extends AbstractControllerTest {
 
@@ -31,12 +30,20 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + (START_SEQ + 1))
+        mockMvc.perform(get(REST_URL + ADMIN_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(ADMIN));
+    }
+
+    @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + 1)
+                .with(TestUtil.userHttpBasic(ADMIN)))
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 
     @Test
@@ -50,11 +57,19 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + START_SEQ).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(delete(REST_URL + USER_ID).contentType(MediaType.APPLICATION_JSON)
                 .with(TestUtil.userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk());
         MATCHER.assertListEquals(Collections.singletonList(ADMIN), userService.getAll());
+    }
+
+    @Test
+    public void testDeleteNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + 1)
+                .with(TestUtil.userHttpBasic(ADMIN)))
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 
     @Test
@@ -69,13 +84,13 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         User updated = USER.asUser();
         updated.setName("UpdatedName");
         updated.setRoles(Role.ROLE_ADMIN);
-        mockMvc.perform(put(REST_URL + START_SEQ)
+        mockMvc.perform(put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(TestUtil.userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(updated, userService.get(START_SEQ));
+        MATCHER.assertEquals(updated, userService.get(USER_ID));
     }
 
     @Test
